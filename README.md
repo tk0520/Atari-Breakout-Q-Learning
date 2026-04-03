@@ -1,5 +1,3 @@
-# DQN
-
 ## Q-Learning + Experience Replay
 [![Paper](https://img.shields.io/badge/paper-DQN-red)](https://arxiv.org/abs/1312.5602)
 [![Implementation](https://img.shields.io/badge/implementation-PyTorch-blue)](https://pytorch.org/)
