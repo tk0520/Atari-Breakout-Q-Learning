@@ -18,18 +18,23 @@ class QLearner(Learner):
         
         return (y - self.agent.current_evaluate(observation)) ** 2
 
-    def get_loss_batch(self, samples_batch):
-        observations = np.array([sample[0] for sample in samples_batch], dtype=np.uint8)
-        actions = np.array([sample[1] for sample in samples_batch], dtype=np.int64)
-        rewards = np.array([sample[2] for sample in samples_batch], dtype=np.float32)
-        next_observations = np.array([sample[3] for sample in samples_batch], dtype=np.uint8)
-        episode_ends =  np.array([sample[4] for sample in samples_batch], dtype=bool)
+    def get_loss_batch(self, samples_batch, weights=None):
+        observations = samples_batch[0]   # 이미 [BATCH, 4, 84, 84] 형태
+        actions = samples_batch[1]
+        rewards = samples_batch[2]
+        next_observations = samples_batch[3]
+        episode_ends = samples_batch[4]
+        # observations = np.array([sample[0] for sample in samples_batch], dtype=np.uint8)
+        # actions = np.array([sample[1] for sample in samples_batch], dtype=np.int64)
+        # rewards = np.array([sample[2] for sample in samples_batch], dtype=np.float32)
+        # next_observations = np.array([sample[3] for sample in samples_batch], dtype=np.uint8)
+        # episode_ends =  np.array([sample[4] for sample in samples_batch], dtype=bool)
 
         observations = torch.from_numpy(observations)
         actions = torch.from_numpy(actions)
         rewards = torch.from_numpy(rewards)
         next_observations = torch.from_numpy(next_observations)
-        episode_ends = torch.from_numpy(episode_ends)
+        episode_ends = torch.from_numpy(episode_ends).bool()
 
         device = next(self.agent.current_model.parameters()).device
         observations = observations.to(device)
@@ -38,12 +43,14 @@ class QLearner(Learner):
         next_observations = next_observations.to(device)
         episode_ends = episode_ends.to(device)
 
+        if actions.dim() == 2:
+            actions = actions[:, 0]
         # ================================================================
         current_q_values = self.agent.current_evaluate(observations)
         with torch.no_grad():
                 next_q_values = self.agent.target_evaluate(next_observations)
         # ================================================================
-        
+
         selected_q_values = current_q_values.gather(1, actions.unsqueeze(1)).squeeze(1)
         non_terminal_mask = ~episode_ends
         targets = rewards.clone()
@@ -51,11 +58,19 @@ class QLearner(Learner):
         if torch.any(non_terminal_mask):
             max_next_q_values = torch.max(next_q_values[non_terminal_mask], dim=1)[0]
             max_next_q_values = max_next_q_values.to(device)
-
             targets[non_terminal_mask] += settings.DISCOUNT * max_next_q_values
+
+        loss_batch = F.huber_loss(targets, selected_q_values, reduction='none', delta=1)
+
+        if weights is not None:
+            weights_tensor = torch.FloatTensor(weights).to(device).squeeze()
+            loss_batch = loss_batch * weights_tensor
         
-        loss_batch = F.huber_loss(targets, selected_q_values, reduction='mean', delta=1)
-        return loss_batch
+        loss_batch = loss_batch.mean()
+
+        
+        raw_loss_batch = (targets - selected_q_values)
+        return loss_batch, raw_loss_batch
 
 class NStepQLearner(Learner):
     def __init__(self, agent):

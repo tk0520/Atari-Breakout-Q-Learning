@@ -1,10 +1,7 @@
-# from gymnasium.wrappers import RecordVideo, AtariPreprocessing, FrameStackObservation
-# import gymnasium as gym
-# import numpy as np
 import envpool
 
 from recorder.setup import setup_env, setup_video_record
-from agent.agent import CartPoleAgent, AtariAgent
+from agent.agent import AtariAgent, AtariAgentPrioritizedReplay
 from utils import train
 import settings
 
@@ -18,5 +15,5 @@ train_envs = envpool.make(
 eval_env = setup_env()
 eval_env = setup_video_record(eval_env)
 
-agent = AtariAgent(BATCH_SIZE, train_envs.observation_space.shape[0], train_envs.action_space.n)
+agent = AtariAgentPrioritizedReplay(BATCH_SIZE, train_envs.observation_space.shape[0], train_envs.action_space.n)
 train(train_envs, eval_env, agent)
