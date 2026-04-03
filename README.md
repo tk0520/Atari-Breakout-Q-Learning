@@ -20,3 +20,17 @@ This implementation uses a **Convolutional Neural Network** to process preproces
 ### 10000-Episodes
 ![best_quality_breakout-DQN-episode-Last](https://github.com/user-attachments/assets/74505f09-6a91-4331-9e29-3c8b0ca74d23)
 
+## Q-Learning + Experience Replay
+[![Paper](https://img.shields.io/badge/paper-DQN-red)](https://arxiv.org/abs/1312.5602)
+[![Paper](https://img.shields.io/badge/paper-PER-red)](https://arxiv.org/abs/1312.5602)
+[![Implementation](https://img.shields.io/badge/implementation-PyTorch-blue)](https://pytorch.org/)
+<hr style="border: none; border-top: 1px solid #eaecef;">
+
+**Playing Atari with Deep Reinforcement Learning**. NIPS Deep Learning Workshop 2013. [Paper](https://arxiv.org/abs/1312.5602)
+
+*Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Alex Graves, Ioannis Antonoglou, Daan Wierstra, Martin Riedmiller*
+
+**Prioritized Experience Replay**. ICLR 2016. [Paper](https://arxiv.org/abs/1511.05952)
+
+*Tom Schaul, John Quan, Ioannis Antonoglou, David Silver*
+
