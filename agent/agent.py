@@ -59,7 +59,7 @@ class CartPoleAgent:
             actions = torch.argmax(q_values, dim=1).cpu().numpy()
             return actions
         
-        p = np.random.rand(self.batch_size) 
+        p = np.random.rand(self.batch_size)  
         
         with torch.no_grad():
             obs_tensor = torch.from_numpy(observation_batch).to(next(self.current_model.parameters()).device)
@@ -70,6 +70,7 @@ class CartPoleAgent:
         if np.any(explore_mask):
             actions[explore_mask] = np.random.randint(0, self.action_size, size=explore_mask.sum())
         
+        actions = actions.astype(np.int32)
         return actions
 
 class AtariAgent(CartPoleAgent):

@@ -5,7 +5,6 @@ import numpy as np
 import ale_py
 import torch
 import copy
-import cv2
 
 import settings
 
@@ -14,16 +13,16 @@ def record_stat(episode_rewards, episode_losses):
 
     # --- 1. Reward Plot ---
     ax1.plot(episode_rewards[::10], color='blue', linewidth=1)
-    ax1.set_title("Total Rewards (per 10 eps)")
-    ax1.set_xlabel("Intervals")
-    ax1.set_ylabel("Reward")
+    ax1.set_title("Total Rewards (per 10 Episode)")
+    ax1.set_xlabel("Per 10 Episodes")
+    ax1.set_ylabel("Total Reward")
 
     # --- 2. Loss Plot ---
     ax2.plot(episode_losses[::10], color='red', linewidth=1)
-    ax2.set_title("Average Loss (per 10 eps)")
-    ax2.set_xlabel("Intervals")
+    ax2.set_title("Average Loss (per 10 Episode)")
+    ax2.set_xlabel("Per 10 Episodes")
     ax2.set_ylabel("Loss")
-    ax2.set_yscale('log')
+    # ax2.set_yscale('log')
 
     plt.tight_layout()
     plt.savefig(f"./stats/{len(episode_rewards)}_graph.png")
@@ -85,6 +84,7 @@ def train(env, eval_env, agent):
         for i in range(settings.ENVS_NUM):
             done = terminated[i] or truncated[i]
             experience_done = terminated[i]
+            
             # 개별 경험 저장
             experience = (observations[i].astype(np.uint8), actions[i], np.clip(rewards[i], -1, 1), next_observations[i], experience_done)
             agent.replay_memory.store(experience)
@@ -95,7 +95,7 @@ def train(env, eval_env, agent):
             if done: 
                 completed_episodes += 1
                 episode_rewards.append(current_rewards[i])
-
+                
                 # Loss 기록
                 if len(temp_losses) > 0:
                     avg_loss = sum(temp_losses) / len(temp_losses)
@@ -120,7 +120,7 @@ def train(env, eval_env, agent):
                     # 로그 출력
                     print(f"Episode {completed_episodes} | Env {i} Reward: {current_rewards[i]} Step: {step_count}")
                     print(f"Epsilon: {agent.epsilon}")
-                
+
                 # 리워드 초기화
                 current_rewards[i] = 0
 
