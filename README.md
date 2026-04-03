@@ -14,11 +14,11 @@ This implementation uses a **Convolutional Neural Network** to process preproces
 <img width="1500" height="500" alt="10000_graph" src="https://github.com/user-attachments/assets/02bc30b3-06ba-409e-9ae3-446e437376ce" />
 
 ### 500-Episodes
-![best_quality_breakout-DQN-episode-Early](https://github.com/user-attachments/assets/5254ae38-16c4-42fc-9080-066381c3de6b)
+https://github.com/user-attachments/assets/91c9f606-83f2-442c-b67a-b9ec76fb376a
 ### 5000-Episodes
-![best_quality_breakout-DQN-episode-Middle](https://github.com/user-attachments/assets/3370253c-92e5-4a57-a0e6-c062859fae80)
+https://github.com/user-attachments/assets/374424b4-9db0-4b68-818b-d520a3f14b47
 ### 10000-Episodes
-![best_quality_breakout-DQN-episode-Last](https://github.com/user-attachments/assets/74505f09-6a91-4331-9e29-3c8b0ca74d23)
+https://github.com/user-attachments/assets/ca1249df-7905-452f-8fcc-79d91d2d007c
 
 ## Q-Learning + Experience Replay
 [![Paper](https://img.shields.io/badge/paper-DQN-red)](https://arxiv.org/abs/1312.5602)
@@ -40,15 +40,7 @@ This implementation adds **Prioritized Experience Replay** to DQN. It replaces t
 
 ### 500-Episodes
 https://github.com/user-attachments/assets/8c600f7d-7b91-463a-a748-b202c3b37750
-
-
 ### 5000-Episodes
 https://github.com/user-attachments/assets/0861738c-5745-45c5-a2c7-133200208c00
-
-
 ### 10000-Episodes
 https://github.com/user-attachments/assets/0eba3a3f-5b04-40e4-b444-a57b36014d8c
-
-
-
-
