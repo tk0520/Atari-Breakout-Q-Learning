@@ -30,7 +30,7 @@ https://github.com/user-attachments/assets/ca1249df-7905-452f-8fcc-79d91d2d007c
 
 *Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Alex Graves, Ioannis Antonoglou, Daan Wierstra, Martin Riedmiller*
 
-**Prioritized Experience Replay**. ICLR 2016. [Paper](https://arxiv.org/abs/1511.05952)
+**Prioritized Prioritized Experience Replay**. ICLR 2016. [Paper](https://arxiv.org/abs/1511.05952)
 
 *Tom Schaul, John Quan, Ioannis Antonoglou, David Silver*
 
