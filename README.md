@@ -10,6 +10,8 @@
 *Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Alex Graves, Ioannis Antonoglou, Daan Wierstra, Martin Riedmiller*
 
 This implementation uses a **Convolutional Neural Network** to process preprocessed raw pixel frames. It applies **Q-Learning** to calculate action-value functions for each action given a specific state, and employs a **Fully Connected Network** to approximate the Q-learning function. **Experience Replay** has been implemented to support the learning process.
+### Result
+<img width="1500" height="500" alt="10000_graph" src="https://github.com/user-attachments/assets/02bc30b3-06ba-409e-9ae3-446e437376ce" />
 
 ### 500-Episodes
 ![best_quality_breakout-DQN-episode-Early](https://github.com/user-attachments/assets/5254ae38-16c4-42fc-9080-066381c3de6b)
