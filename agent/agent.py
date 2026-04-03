@@ -85,7 +85,7 @@ class AtariAgent(CartPoleAgent):
 class AtariAgentPrioritizedReplay(AtariAgent):
     def __init__(self, batch_size, state_size, action_size):
         super().__init__(batch_size, state_size, action_size)
-        self.replay_memory = PrioritizedReplayMemory(self)
+        self.replay_memory = PrioritizedReplayMemory(self, state_size, action_size)
 
     def current_evaluate(self, observation):
         return self.current_model.forward(observation)

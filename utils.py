@@ -111,7 +111,7 @@ def train(env, eval_env, agent):
                     
                     # 모델 저장
                     if completed_episodes % settings.MODEL_SAVE_INTERVAL == 0:
-                        torch.save(agent.current_model.state_dict(), f"models/DQN_{completed_episodes}.pt")
+                        torch.save(agent.current_model.state_dict(), f"models/DQN_PER_{completed_episodes}.pt")
 
                     # 비디오 녹화
                     if completed_episodes % settings.VIDEO_INTERVAL == 0:
@@ -125,13 +125,21 @@ def train(env, eval_env, agent):
                 current_rewards[i] = 0
 
         if len(agent.replay_memory) > settings.INITIAL_MEMORY and step_count % (settings.ENVS_NUM * 1) == 0:
-            samples_batch = agent.replay_memory.get_samples()
-            loss_batch = agent.learner.get_loss_batch(samples_batch)
+            # samples_indices = agent.replay_memory.get_samples_indices()
+            samples_batch, samples_weights, tree_indices, samples_indices = agent.replay_memory.get_samples()
+            loss_batch, raw_loss_batch = agent.learner.get_loss_batch(samples_batch, samples_weights)
+
+            # =======================================================
+            # samples_batch = agent.replay_memory.get_samples()
+            # loss_batch = agent.learner.get_loss_batch(samples_batch)
             temp_losses.append(loss_batch.item())
 
             agent.optimizer.zero_grad()
             loss_batch.backward()
             agent.optimizer.step()
+            # =======================================================
+
+            agent.replay_memory.update_priorities(samples_indices, raw_loss_batch)
             
             if step_count % settings.UPDATE_INTERVAL == 0:
                 agent.update_target_model()
