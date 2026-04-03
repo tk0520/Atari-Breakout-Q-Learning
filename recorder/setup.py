@@ -27,7 +27,7 @@ def setup_env():
 def setup_video_record(eval_env):
     eval_env = RecordVideo(
         eval_env,
-        video_folder="/home/solo/Desktop/paper-implementation/videos",
+        video_folder="/home/solo/Desktop/Atari-Breakout-Q-Learning/videos",
         episode_trigger=lambda x: True,
         name_prefix=f"breakout-DQN"
     )

@@ -4,8 +4,8 @@ import random
 import torch
 import time
 
-from agent.learner.q_learning import QLearner, NStepQLearner
-from agent.memory import ReplayMemory
+from agent.learner.q_learning import QLearner
+from agent.memory import ReplayMemory, PrioritizedReplayMemory
 from agent.model import DQN, DQNAtari
 import settings
 
@@ -81,3 +81,16 @@ class AtariAgent(CartPoleAgent):
 
         self.optimizer = RMSprop(self.current_model.parameters(), lr=settings.LEARNING_RATE, alpha=0.95)
         self.update_target_model()
+
+class AtariAgentPrioritizedReplay(AtariAgent):
+    def __init__(self, batch_size, state_size, action_size):
+        super().__init__(batch_size, state_size, action_size)
+        self.replay_memory = PrioritizedReplayMemory(self)
+
+    def current_evaluate(self, observation):
+        return self.current_model.forward(observation)
+    
+    def target_evaluate(self, observation):
+        with torch.no_grad():
+            return self.target_model.forward(observation)
+

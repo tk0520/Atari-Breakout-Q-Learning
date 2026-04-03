@@ -127,7 +127,6 @@ def train(env, eval_env, agent):
         if len(agent.replay_memory) > settings.INITIAL_MEMORY and step_count % (settings.ENVS_NUM * 1) == 0:
             samples_batch = agent.replay_memory.get_samples()
             loss_batch = agent.learner.get_loss_batch(samples_batch)
-            
             temp_losses.append(loss_batch.item())
 
             agent.optimizer.zero_grad()
