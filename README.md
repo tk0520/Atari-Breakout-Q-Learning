@@ -39,8 +39,16 @@ This implementation adds **Prioritized Experience Replay** to DQN. It replaces t
 <img width="1500" height="500" alt="10000_graph" src="https://github.com/user-attachments/assets/64091d53-c34f-42ac-96df-9012f8ce4758" />
 
 ### 500-Episodes
+https://github.com/user-attachments/assets/8c600f7d-7b91-463a-a748-b202c3b37750
+
 
 ### 5000-Episodes
+https://github.com/user-attachments/assets/0861738c-5745-45c5-a2c7-133200208c00
+
 
 ### 10000-Episodes
+https://github.com/user-attachments/assets/0eba3a3f-5b04-40e4-b444-a57b36014d8c
+
+
+
 
