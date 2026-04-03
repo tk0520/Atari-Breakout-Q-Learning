@@ -34,3 +34,13 @@ This implementation uses a **Convolutional Neural Network** to process preproces
 
 *Tom Schaul, John Quan, Ioannis Antonoglou, David Silver*
 
+This implementation adds **Prioritized Experience Replay** to DQN. It replaces the standard **Experience Replay**. Even with half the buffer size, it achieves better performance.
+### Result
+<img width="1500" height="500" alt="10000_graph" src="https://github.com/user-attachments/assets/64091d53-c34f-42ac-96df-9012f8ce4758" />
+
+### 500-Episodes
+
+### 5000-Episodes
+
+### 10000-Episodes
+
